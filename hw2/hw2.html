@@ -7928,6 +7928,9 @@ a.anchor-link {
   <span class="k">return</span> <span class="n">lamb</span> <span class="o">*</span> <span class="n">x</span><span class="nd">@x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@x</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
 
 <span class="k">def</span> <span class="nf">SVM_loss_prime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+  <span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@x</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Not differentiable"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span>
   <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lamb</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@x</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">SVM_SGD</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="nb">iter</span><span class="p">):</span>
@@ -8068,6 +8071,9 @@ a.anchor-link {
   <span class="k">return</span> <span class="n">lamb</span> <span class="o">*</span> <span class="n">x</span><span class="nd">@x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">test_Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">test_X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@x</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">test_N</span><span class="p">)])</span>
 
 <span class="k">def</span> <span class="nf">SVM_loss_prime_splitted</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+  <span class="k">if</span> <span class="mi">0</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">train_Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">train_X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@x</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Not differentiable"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
   <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lamb</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">train_Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">train_X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">train_Y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">train_X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="nd">@x</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">SVM_SGD_splitted</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="nb">iter</span><span class="p">):</span>
@@ -8197,8 +8203,19 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Problem 1과 2에서 다룬 데이터는 온전히 랜덤하게 생성된 데이터로, 이러한 데이터에서는 근본적으로 예측이 불가능하다. 따라서 이로 인해서 Logistic Regression과 SVM 모두에서 Loss 가 크게 줄어들지 않는 것을 확인할 수 있다. <br/>
-그러나 random 하게 생성하는 과정에서 X의 각 성분이 0과 1 사이라는 것과 Y가 1과 -1 중 하나라는 점에서 가지는 규칙으로 인한 부분까지는 학습이 진행되어 Loss가 감소했고, 이후에는 SGD가 non-differentiable한 부분에서 멈추는 것으로 보인다. <br/>
-다만, Overfitting이 발생하는 경우에는 Loss가 지속해서 감소하였기에, Train-Test split을 통해 이를 확인하였고 non-differentiable한 부분에서 멈추는 것을 확인하였다.</p>
+그러나 random 하게 생성하는 과정에서 X의 각 성분이 0과 1 사이라는 것과 Y가 1과 -1 중 하나라는 점에서 가지는 규칙으로 인한 부분까지는 학습이 진행되어 Loss가 감소했다. <br/>
+다만, Overfitting이 발생하는 경우에는 Loss가 지속해서 감소하였기에, Train-Test split을 통해 이를 확인하였다.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>중간중간에 $1-Y_iX_i^T \theta$ 가 0이 되는 경우에 대한 처리를 해 주었지만, 단 한번도 해당 예외가 발생하지 않았다. 이는 SGD가 미분 불가능한 점으로 가지 않았다는 것을 의미하고, 이는 확률적으로 낮은 확률로 발생할 수 있는 현상이기에 도달하지 않을 수 있다.</p>
 </div>
 </div>
 </div>
