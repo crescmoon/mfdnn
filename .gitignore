@@ -3,3 +3,4 @@ data
 cifar_10data
 **.pt
 MNIST
+KMNIST
