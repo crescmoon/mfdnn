@@ -4,3 +4,5 @@ cifar_10data
 **.pt
 MNIST
 KMNIST
+venv
+.DS_Store
